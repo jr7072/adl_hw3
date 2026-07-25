@@ -116,8 +116,8 @@ def train_model(
     trainer = Trainer(
         lora_model,
         args=training_args,
-        train_dataset=TokenizedDataset(llm.model.tokenizer, data=Dataset("train"), format_fn=format_example),
-        eval_dataset=TokenizedDataset(llm.model.tokenizer, data=Dataset("valid"), format_fn=format_example),
+        train_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("train"), format_fn=format_example),
+        eval_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("valid"), format_fn=format_example),
     )
     
     trainer.train() # ty: ignore
