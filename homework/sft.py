@@ -108,7 +108,7 @@ def train_model(
         report_to="tensorboard",
         eval_strategy="epoch",        # Evaluate at the end of each epoch
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
-        learning_rate=2e-5,
+        learning_rate=2e-4,
         per_device_train_batch_size=64,
         per_device_eval_batch_size=64,
         num_train_epochs=10,
@@ -117,7 +117,6 @@ def train_model(
 
 
     optimizer = AdamW(llm.model.parameters(), lr=training_args.learning_rate)
-
     lr_scheduler = StepLR(optimizer, step_size=5, gamma=0.1)
 
     trainer = Trainer(
