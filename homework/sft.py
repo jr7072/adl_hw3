@@ -2,6 +2,8 @@ from .base_llm import BaseLLM
 from .data import Dataset, benchmark
 from transformers import Trainer, TrainingArguments
 from peft import get_peft_model, LoraConfig
+from torch.optim import AdamW
+from torch.optim.lr_scheduler import StepLR
 
 
 def load() -> BaseLLM:
@@ -113,11 +115,17 @@ def train_model(
         weight_decay=0.01,
     )
 
+
+    optimizer = AdamW(llm.model.parameters(), lr=training_args.learning_rate)
+
+    lr_scheduler = StepLR(optimizer, step_size=5, gamma=0.1)
+
     trainer = Trainer(
         lora_model,
         args=training_args,
         train_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("train"), format_fn=format_example),
         eval_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("valid"), format_fn=format_example),
+        optimizers=(optimizer, lr_scheduler)
     )
     
     trainer.train() # ty: ignore
