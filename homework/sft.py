@@ -114,21 +114,14 @@ def train_model(
         per_device_eval_batch_size=64,
         num_train_epochs=10,
         weight_decay=0.01,
+        lr_scheduler_type="reduce_lr_on_plateau"
     )
-
-
-    optimizer = AdamW(llm.model.parameters(), lr=training_args.learning_rate, 
-                        weight_decay=training_args.weight_decay,
-                        eps=training_args.adam_epsilon, betas=(training_args.adam_beta1, training_args.adam_beta2)
-                    )
-    lr_scheduler = StepLR(optimizer, step_size=5, gamma=0.1)
 
     trainer = Trainer(
         lora_model,
         args=training_args,
         train_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("train"), format_fn=format_example),
-        eval_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("valid"), format_fn=format_example),
-        optimizers=(optimizer, lr_scheduler)
+        eval_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("valid"), format_fn=format_example)
     )
     
     trainer.train() # ty: ignore
