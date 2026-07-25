@@ -107,8 +107,8 @@ def train_model(
         eval_strategy="epoch",        # Evaluate at the end of each epoch
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
         learning_rate=2e-5,
-        per_device_train_batch_size=32,
-        per_device_eval_batch_size=32,
+        per_device_train_batch_size=64,
+        per_device_eval_batch_size=64,
         num_train_epochs=5,
         weight_decay=0.01,
     )
