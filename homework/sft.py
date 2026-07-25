@@ -109,7 +109,7 @@ def train_model(
         learning_rate=2e-4,
         per_device_train_batch_size=64,
         per_device_eval_batch_size=64,
-        num_train_epochs=5,
+        num_train_epochs=10,
         weight_decay=0.01,
     )
 
