@@ -92,8 +92,8 @@ def train_model(
         target_modules="all-linear",
         bias="none",
         task_type="CAUSAL_LM",
-        r=32,
-        lora_alpha=128
+        r=16,
+        lora_alpha=64
     )
 
     lora_model = get_peft_model(llm.model, lora_config) # ty: ignore
@@ -106,7 +106,7 @@ def train_model(
         report_to="tensorboard",
         eval_strategy="epoch",        # Evaluate at the end of each epoch
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
-        learning_rate=2e-5,
+        learning_rate=2e-4,
         per_device_train_batch_size=64,
         per_device_eval_batch_size=64,
         num_train_epochs=5,
