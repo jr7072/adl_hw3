@@ -12,7 +12,7 @@ def load() -> BaseLLM:
 
     from peft import PeftModel
 
-    model_name = "sft_model"
+    model_name = "st_model"
     model_path = Path(__file__).parent / model_name
 
     llm = BaseLLM()

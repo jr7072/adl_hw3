@@ -1,5 +1,10 @@
+from homework.base_llm import BaseLLM
+
 def generate_dataset(output_json: str, oversample: int = 10, temperature: float = 0.6):
-    raise NotImplementedError()
+    
+    # load the llm model (going to use 1.7B model)
+    llm_17 = BaseLLM(checkpoint=)
+
 
 
 if __name__ == "__main__":
