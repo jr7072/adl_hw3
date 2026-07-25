@@ -92,7 +92,7 @@ def train_model(
         target_modules="all-linear",
         bias="none",
         task_type="CAUSAL_LM",
-        r=16,
+        r=32,
         lora_alpha=128
     )
 
