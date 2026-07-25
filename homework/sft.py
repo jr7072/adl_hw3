@@ -122,7 +122,7 @@ def train_model(
     )
     
     trainer.train() # ty: ignore
-
+    trainer.save_model(output_dir) # ty: ignore
     test_model(output_dir)
 
 
