@@ -108,7 +108,7 @@ def train_model(
         logging_dir=output_dir,
         report_to="tensorboard",
         eval_strategy="epoch",        # Evaluate at the end of each epoch
-        save_strategy="epoch",        # Save checkpoint at the end of each epoch
+        save_strategy="no",        # Save checkpoint at the end of each epoch
         learning_rate=2e-4,
         per_device_train_batch_size=64,
         per_device_eval_batch_size=64,
