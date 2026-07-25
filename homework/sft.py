@@ -13,7 +13,7 @@ def load() -> BaseLLM:
     model_path = Path(__file__).parent / model_name
 
     llm = BaseLLM()
-    llm.model = PeftModel.from_pretrained(llm.model, model_path).to(llm.device)
+    llm.model = PeftModel.from_pretrained(llm.model, model_name).to(llm.device)
     llm.model.eval()
 
     return llm
@@ -117,8 +117,8 @@ def train_model(
     trainer = Trainer(
         lora_model,
         args=training_args,
-        train_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("train"), format_fn=format_example),
-        eval_dataset=TokenizedDataset(llm.tokenizer, data=Dataset("valid"), format_fn=format_example),
+        train_dataset=TokenizedDataset(tokenize, data=Dataset("train"), format_fn=format_example),
+        eval_dataset=TokenizedDataset(tokenize, data=Dataset("valid"), format_fn=format_example),
     )
     
     trainer.train() # ty: ignore
