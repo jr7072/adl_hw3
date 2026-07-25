@@ -92,8 +92,8 @@ def train_model(
         target_modules="all-linear",
         bias="none",
         task_type="CAUSAL_LM",
-        r=8,
-        lora_alpha=32
+        r=16,
+        lora_alpha=128
     )
 
     lora_model = get_peft_model(llm.model, lora_config) # ty: ignore
@@ -109,7 +109,7 @@ def train_model(
         learning_rate=2e-5,
         per_device_train_batch_size=32,
         per_device_eval_batch_size=32,
-        num_train_epochs=3,
+        num_train_epochs=5,
         weight_decay=0.01,
     )
 
