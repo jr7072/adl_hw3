@@ -14,7 +14,7 @@ def load() -> BaseLLM:
 
     model_name = "sft_model"
     model_path = Path(__file__).parent / model_name
-
+ 
     llm = BaseLLM()
     llm.model = PeftModel.from_pretrained(llm.model, model_path).to(llm.device)
     llm.model.eval()
@@ -95,8 +95,8 @@ def train_model(
         target_modules="all-linear",
         bias="none",
         task_type="CAUSAL_LM",
-        r=16,
-        lora_alpha=64
+        r=8,
+        lora_alpha=32
     )
 
     lora_model = get_peft_model(llm.model, lora_config) # ty: ignore
