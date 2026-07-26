@@ -3,6 +3,7 @@ from typing import overload
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+import numpy as np
 
 checkpoint = "HuggingFaceTB/SmolLM2-360M-Instruct"
 
@@ -96,7 +97,7 @@ class BaseLLM:
         # Preventing OOM
         # Depending on your GPU batched generation will use a lot of memory.``
         # If you run out of memory, try to reduce the micro_batch_size.
-        micro_batch_size = 64
+        micro_batch_size = 4
         if len(prompts) > micro_batch_size:
             return [
                 r
@@ -131,19 +132,7 @@ class BaseLLM:
         response = self.tokenizer.batch_decode(output_ids)
 
         if num_return_sequences:
-
-            responses = list()
-            sequence_list = list()
-            for i, response in enumerate(response):
-                
-                sequence_list.append(response)
-
-                if (i + 1) % num_return_sequences == 0:
-                    responses.append(sequence_list)
-                    sequence_list = list()
-
-
-            return responses
+            return np.array(response).reshape(len(prompts), num_return_sequences)
 
         return response
 
