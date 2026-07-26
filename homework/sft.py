@@ -12,11 +12,11 @@ def load() -> BaseLLM:
 
     from peft import PeftModel
 
-    model_name = "st_model"
+    model_name = "sft_model"
     model_path = Path(__file__).parent / model_name
 
     llm = BaseLLM()
-    llm.model = PeftModel.from_pretrained(llm.model, model_name).to(llm.device)
+    llm.model = PeftModel.from_pretrained(llm.model, model_path).to(llm.device)
     llm.model.eval()
 
     return llm
