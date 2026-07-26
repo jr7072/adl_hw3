@@ -66,14 +66,13 @@ def train_model(
         gradient_checkpointing=True,
         logging_dir=output_dir,
         report_to="tensorboard",
-        eval_strategy="epoch",        # Evaluate at the end of each epoch
+        eval_strategy="no",        # Evaluate at the end of each epoch
         save_strategy="no",        # Save checkpoint at the end of each epoch
         learning_rate=2e-4,
         per_device_train_batch_size=64,
         per_device_eval_batch_size=64,
-        num_train_epochs=5,
-        weight_decay=0.01,
-        lr_scheduler_type="reduce_lr_on_plateau"
+        num_train_epochs=10,
+        weight_decay=0.01
     )
 
     trainer = Trainer(
